@@ -1,3 +1,5 @@
+package SudokuSolver;
+
 import java.util.*;
 
 public class Sudoku {
@@ -13,8 +15,8 @@ public class Sudoku {
     //The sudoku grid we are trying to solve
     public int grid[][];
 
-    //Hashset that stores all the solutions if there are multiple
-    public HashSet<Sudoku> solutions = new HashSet<Sudoku>();
+    //ArratList that stores all the solutions if there are multiple
+    public ArrayList<Sudoku> solutions = new ArrayList<>();
 
     // Field that stores the number masks of the numbers that can fit in the sudoku (from 1 to N)
     // The element at index i corresponds to the bitmask of the number i+1
@@ -25,18 +27,21 @@ public class Sudoku {
     // Note that the bits represent the numbers from N to 1 if we read from left to right -> start reading at the right for 1 to N
     private int[][] possibilitiesMatrix;
 
-    //Public solve method that takes in a boolean depending on whether we want every solution or not
-    //It stores all the solutions in the "solutions" hashset if passed true (Calls separate helper methods for each case)
-    public void solve(boolean allSolutions) {
-        initPossibilitiesMatrix(); //Initializing the possibilities matrix
-        if(allSolutions) solveMultiple(grid, possibilitiesMatrix);
-        else solveUnique(grid, possibilitiesMatrix);
-    }
-
 
     /**
      * Public methods (Solve, constructor)
      */
+
+    //Public solve method that takes in a boolean depending on whether we want every solution or not
+    //It stores all the solutions in the "solutions" ArrayList if passed true (Calls separate helper methods for each case)
+    public void solve(boolean allSolutions) {
+        initPossibilitiesMatrix(); //Initializing the possibilities matrix
+        if(allSolutions){
+            solveMultiple(grid, possibilitiesMatrix);
+            if(solutions.size() > 0) this.grid = solutions.get(0).grid; //If we found at least 1 solution, assign the first one to the grid
+        }
+        else solveUnique(grid, possibilitiesMatrix);
+    }
 
     //Public constructor that initializes the grid to all 0s, creates the number masks, and intializes the possibilties matrix to hold all ones
     public Sudoku(int size) {
@@ -73,7 +78,7 @@ public class Sudoku {
      */
 
     //Private constructor that creates a new ChessSudoku object given a grid (deep copy)
-    //Used to store new solutions we reach in the solutions hashset in case we want all solutions
+    //Used to store new solutions we reach in the solutions ArrayList in case we want all solutions
     private Sudoku(int SIZE, int[][] grid){
 
         this.SIZE = SIZE;
@@ -205,15 +210,14 @@ public class Sudoku {
 
         //Recursive part of the method that adds the next legal number at the next empty spots with minimum possibilities left.
         //This is the so called brute force approach with backtracking. Note that we create 2 new matrices to copy the possibilites
-        //matrix and grid to them. If the last bruteforced number leads to a solution, we add that solution to the hashset of solutions
+        //matrix and grid to them. If the last bruteforced number leads to a solution, we add that solution to the ArrayList of solutions
         //and try other possibilities (can't stop like unique). However, if it leads to a dead end, we just discard that matrix (here
         //we see how creating a new matrix saved us the time of undoing all the changes we made to the possibilities matrix)
         int[] bestSpot = getMinimumPossibilities(grid, possibilitiesMatrix); //Finding the best spot
 
-        if (bestSpot[0] == -2) { //If all spots are taken, it means we have a solution -> add it to hashset and let the parent know
+        if (bestSpot[0] == -2) { //If all spots are taken, it means we have a solution -> add it to ArrayList and let the parent know
             Sudoku solution = new Sudoku(SIZE, grid);
             solutions.add(solution);
-            this.grid = solution.grid;
             return;
         }
 
@@ -551,23 +555,4 @@ public class Sudoku {
         possibilitiesMatrix[i][j] = 0; //No more values are allowed in that square
     }
 
-    /**
-     * Input-Output methods for printing out a grid
-     */
-
-    public void print(){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                System.out
-            }
-        }
-    }
-
-    /**
-     * Main method for trying the code
-     */
-
-    public static void main(String[] args){
-        Sudoku
-    }
 }
