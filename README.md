@@ -56,6 +56,6 @@ To once again show the convenience of using bitfields, this final method takes i
     }
   
  <br/><br/>
- This project was inspired by the work of Kevin Coulombe which can be found here: http://byteauthor.com/2010/08/sudoku-solver/
+ The solving algorithm was inspired by the work of Kevin Coulombe which can be found here: http://byteauthor.com/2010/08/sudoku-solver/
 </p>
 
