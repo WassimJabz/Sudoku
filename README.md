@@ -37,7 +37,7 @@ To demonstrate the efficiency of using bitfields, here is the pseudocode for the
 
          return -1; //To say that it does not have a single possibility
     }
-(So instead of going through a whole array of booleans, we just manipulate a bitifield which is less costly)
+(So instead of going through a whole array of booleans, we just manipulate a bitfield which is less costly)
 
 
 To once again show the convenience of using bitfields, this final method takes in a number as well as a row and a column that represent the coordinates at which we added the number in the sudoku grid. It modifies the possibilities matrix accordingly:
@@ -55,6 +55,7 @@ To once again show the convenience of using bitfields, this final method takes i
          }
     }
   
- 
+ <br/><br/>
+ This project was inspired by the work of Kevin Coulombe which can be found here: http://byteauthor.com/2010/08/sudoku-solver/
 </p>
 
