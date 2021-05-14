@@ -16,44 +16,44 @@
   
   For storing the bitfields in the possibilities matrix, I used a system where a sequence of 1s and 0s specifies which values can go in a given spot. For example, the bitfield 001111001 specifies that a 1 can go in the spot, a 2 can't, a 3 can't, a 4 can... (from right to left):
 
-void initializeMatrix(){
-     for(every entry in the possibilities matrix)
-          store a series of N 1s, where N is the size^2 of the sudoku (9 for a 3x3)
-          //As at the beginning we assume every cell can store every number
+    void initializeMatrix(){
+         for(every entry in the possibilities matrix)
+              store a series of N 1s, where N is the size^2 of the sudoku (9 for a 3x3)
+              //As at the beginning we assume every cell can store every number
 
-     for(every entry in the sudoku grid)
-          if(entry is not 0)
-                apply the bitmask to the affected squares in the possibilities matrix (row, col, ...)
-                //Applying the bitmask means setting the corresponding digit of the bitfield to 0
- }
+         for(every entry in the sudoku grid)
+              if(entry is not 0)
+                    apply the bitmask to the affected squares in the possibilities matrix (row, col, ...)
+                    //Applying the bitmask means setting the corresponding digit of the bitfield to 0
+     }
 
 
 To demonstrate the efficiency of using bitfields, here is the pseudocode for the method that checks if a cell has a unique possibility and returns the number to add if true:
 
-int checkIfUnique(int row, int column){
-     if(possibilities matrix at row, column has a single 1 bit)
-            return the position of that 1 starting from the right
-            //As the rightmost digit represents the number 1, the 2nd rightmost the number 2...
+    int checkIfUnique(int row, int column){
+         if(possibilities matrix at row, column has a single 1 bit)
+                return the position of that 1 starting from the right
+                //As the rightmost digit represents the number 1, the 2nd rightmost the number 2...
 
-     return -1; //To say that it does not have a single possibility
-}
+         return -1; //To say that it does not have a single possibility
+    }
 (So instead of going through a whole array of booleans, we just manipulate a bitifield which is less costly)
 
 
 To once again show the convenience of using bitfields, this final method takes in a number as well as a row and a column that represent the coordinates at which we added the number in the sudoku grid. It modifies the possibilities matrix accordingly:
 
-void applyMask(int row, int column, int number){
-     bitMask = !(1 << (number-1))
-     //This way we get a bitfield with all 1s except a 0 at the spot corresponding to number
-     //For example, if number = 5, then we shift the 1 by 4 spots to the left to get 00001000
-     //We then apply the ! operator which inverts every bit to get 11110111
+    void applyMask(int row, int column, int number){
+         bitMask = !(1 << (number-1))
+         //This way we get a bitfield with all 1s except a 0 at the spot corresponding to number
+         //For example, if number = 5, then we shift the 1 by 4 spots to the left to get 00001000
+         //We then apply the ! operator which inverts every bit to get 11110111
 
-     for(every spot in the same row, column, submatrix, as well as chess rule affected spots){
-           possibilities matrix at that spot &= bitfield
-          //Logical and to set the spot corresponding to number to 0
-          //This says that the number can't go there anymore
-     }
-}
+         for(every spot in the same row, column, submatrix, as well as chess rule affected spots){
+               possibilities matrix at that spot &= bitfield
+              //Logical and to set the spot corresponding to number to 0
+              //This says that the number can't go there anymore
+         }
+    }
   
  
 </p>
