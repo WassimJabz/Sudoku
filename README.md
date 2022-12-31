@@ -48,7 +48,7 @@ To once again show the convenience of using bitfields, this final method takes i
          //For example, if number = 5, then we shift the 1 by 4 spots to the left to get 00001000
          //We then apply the ! operator which inverts every bit to get 11110111
 
-         for(every spot in the same row, column, submatrix, as well as chess rule affected spots){
+         for(every spot in the same row, column, submatrix){
                possibilities matrix at that spot &= bitfield
               //Logical and to set the spot corresponding to number to 0
               //This says that the number can't go there anymore
