@@ -48,8 +48,9 @@ To once again show the convenience of using bitfields, this final method takes i
               //This says that the number can't go there anymore
          }
     }
- <br/><br/>
+    <br>
  The solving algorithm was inspired by the work of Kevin Coulombe which can be found here: http://byteauthor.com/2010/08/sudoku-solver/
+ 
 
 ## Visualization
 
