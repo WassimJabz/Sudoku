@@ -54,7 +54,7 @@ To once again show the convenience of using bitfields, this final method takes i
 
 ## Visualization
 
- The solutions are displayed using JavaFX:
+ The solutions are displayed using JavaFX: <br>
   <img src="Thumbnail.png" align="center"><br/><br/>
 </p>
 
